@@ -83,12 +83,12 @@ export default function RootLayout({
               </div>
             </header>
             {productos}
-            <footer className="bg-muted py-6 mt-8">
-              <div className="container mx-auto px-4 md:px-6 text-center text-muted-foreground">
-                &copy; 2023 Product Gallery. All rights reserved.
-              </div>
-            </footer>
           </div>
+          <footer className="bg-muted py-6 mt-8">
+            <div className="container mx-auto px-4 md:px-6 text-center text-muted-foreground">
+              &copy; 2023 Product Gallery. All rights reserved.
+            </div>
+          </footer>
         </div>
         {product}
       </body>
