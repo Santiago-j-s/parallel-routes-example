@@ -4,13 +4,26 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { MenuIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { Suspense } from "react";
 import { CategoryButton, CategoryMenuItem } from "./components/CategoryButton";
 import "./globals.css";
+
+function NavSkeleton() {
+  return (
+    <nav className="hidden md:flex items-center gap-4">
+      <Skeleton className="w-20 h-8" />
+      <Skeleton className="w-20 h-8" />
+      <Skeleton className="w-20 h-8" />
+      <Skeleton className="w-20 h-8" />
+    </nav>
+  );
+}
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -44,27 +57,29 @@ export default function RootLayout({
                 <Link href="#" className="text-lg font-bold" prefetch={false}>
                   Product Gallery
                 </Link>
-                <nav className="hidden md:flex items-center gap-4">
-                  <CategoryButton category="all" />
-                  <CategoryButton category="Accessories" />
-                  <CategoryButton category="Electronics" />
-                  <CategoryButton category="Shoes" />
-                </nav>
-                <div className="md:hidden">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="icon">
-                        <MenuIcon className="h-6 w-6" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <CategoryMenuItem category="all" />
-                      <CategoryMenuItem category="Accessories" />
-                      <CategoryMenuItem category="Electronics" />
-                      <CategoryMenuItem category="Shoes" />
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                <Suspense fallback={<NavSkeleton />}>
+                  <nav className="hidden md:flex items-center gap-4">
+                    <CategoryButton category="all" />
+                    <CategoryButton category="Accessories" />
+                    <CategoryButton category="Electronics" />
+                    <CategoryButton category="Shoes" />
+                  </nav>
+                  <div className="md:hidden">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="icon">
+                          <MenuIcon className="h-6 w-6" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <CategoryMenuItem category="all" />
+                        <CategoryMenuItem category="Accessories" />
+                        <CategoryMenuItem category="Electronics" />
+                        <CategoryMenuItem category="Shoes" />
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </Suspense>
               </div>
             </header>
             {productos}
